@@ -10,19 +10,11 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
+import Axios from 'axios';
 
+import LoginForm from './components/LoginForm';
 
-const fakeAuth = {
-  isAuthenticated: false,
-  signin(cb) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
-};
+const BASE_URL = `https://aba-backend-golang.herokuapp.com`
 
 /** For more details on
  * `authContext`, `ProvideAuth`, `useAuth` and `useProvideAuth`
@@ -45,23 +37,36 @@ function useAuth() {
 
 function useProvideAuth() {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-  const signin = cb => {
-    return fakeAuth.signin(() => {
-      setUser("user");
-      cb();
-    });
+  const signin = (credentials) => {
+    Axios.post(`${BASE_URL}/login`, {
+      email: credentials.email,
+      password: credentials.password,
+    })
+      .then((result) => {
+        if (result.status === 200) {
+          setUser(result.data.user);
+          setToken(result.data.token);
+        }
+        else {
+          setUser(null);
+        }
+      })
+      .catch((err) => {
+        //TODO Fix this!
+        console.log(err);
+      })
   };
 
-  const signout = cb => {
-    return fakeAuth.signout(() => {
-      setUser(null);
-      cb();
-    });
+  const signout = () => {
+    setUser(null);
+    setToken(null);
   };
 
   return {
     user,
+    token,
     signin,
     signout
   };
@@ -76,7 +81,8 @@ function AuthButton() {
       Welcome!{" "}
       <button
         onClick={() => {
-          auth.signout(() => history.push("/"));
+          auth.signout();
+          history.push("/")
         }}
       >
         Sign out
@@ -125,9 +131,18 @@ function LoginPage() {
 
   let { from } = location.state || { from: { pathname: "/" } };
   let login = () => {
-    auth.signin(() => {
-      history.replace(from);
-    });
+    var credentials = {
+      email: 'RyanTest@test.ca',
+      password: 'password123',
+    }
+
+    // TODO: CHECK HISTORY IS UPDATED
+    // auth.signin((credentials) => {
+    //   history.replace(from);
+    // });
+
+    auth.signin(credentials);
+    history.replace(from);
   };
 
   return (
@@ -174,7 +189,8 @@ let App = () => {
               <PublicPage />
             </Route>
             <Route path="/login">
-              <LoginPage />
+              {/* <LoginPage /> */}
+              <LoginForm useAuth={useAuth} />
             </Route>
             <PrivateRoute path="/protected">
               <ProtectedPage />
