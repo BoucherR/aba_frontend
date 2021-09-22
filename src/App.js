@@ -12,7 +12,26 @@ import {
 } from "react-router-dom";
 import Axios from 'axios';
 
-import LoginForm from './components/LoginForm';
+import LoginForm from './components/auth/LoginForm';
+import NavDrawer from './components/navigation/NavDrawer';
+
+import { Grid, Box } from "@mui/material"
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#0b9c47',
+    },
+    secondary: {
+      main: '#f5003b',
+    },
+    error: {
+      main: '#f43636',
+    },
+  },
+});
 
 const BASE_URL = `https://aba-backend-golang.herokuapp.com`
 
@@ -78,7 +97,7 @@ function AuthButton() {
 
   return auth.user ? (
     <p>
-      Welcome!{" "}
+      Welcome, {auth.user.name}!
       <button
         onClick={() => {
           auth.signout();
@@ -124,34 +143,34 @@ function ProtectedPage() {
   return <h3>Protected</h3>;
 }
 
-function LoginPage() {
-  let history = useHistory();
-  let location = useLocation();
-  let auth = useAuth();
+// function LoginPage() {
+//   let history = useHistory();
+//   let location = useLocation();
+//   let auth = useAuth();
 
-  let { from } = location.state || { from: { pathname: "/" } };
-  let login = () => {
-    var credentials = {
-      email: 'RyanTest@test.ca',
-      password: 'password123',
-    }
+//   let { from } = location.state || { from: { pathname: "/" } };
+//   let login = () => {
+//     var credentials = {
+//       email: 'RyanTest@test.ca',
+//       password: 'password123',
+//     }
 
-    // TODO: CHECK HISTORY IS UPDATED
-    // auth.signin((credentials) => {
-    //   history.replace(from);
-    // });
+//     // TODO: CHECK HISTORY IS UPDATED
+//     // auth.signin((credentials) => {
+//     //   history.replace(from);
+//     // });
 
-    auth.signin(credentials);
-    history.replace(from);
-  };
+//     auth.signin(credentials);
+//     history.replace(from);
+//   };
 
-  return (
-    <div>
-      <p>You must log in to view the page at {from.pathname}</p>
-      <button onClick={login}>Log in</button>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <p>You must log in to view the page at {from.pathname}</p>
+//       <button onClick={login}>Log in</button>
+//     </div>
+//   );
+// }
 
 // This example has 3 pages: a public page, a protected
 // page, and a login screen. In order to see the protected
@@ -173,29 +192,38 @@ let App = () => {
     <ProvideAuth>
       <Router>
         <div>
-          <AuthButton />
+          <NavDrawer />
+          <Box sx={{
+            paddingLeft: '240px',
+            paddingTop: '65px',
+          }}>
+            <AuthButton />
+            <ul>
+              <li>
+                <Link to="/public">Public Page</Link>
+              </li>
+              <li>
+                <Link to="/protected">Protected Page</Link>
+              </li>
+            </ul>
 
-          <ul>
-            <li>
-              <Link to="/public">Public Page</Link>
-            </li>
-            <li>
-              <Link to="/protected">Protected Page</Link>
-            </li>
-          </ul>
-
-          <Switch>
-            <Route path="/public">
-              <PublicPage />
-            </Route>
-            <Route path="/login">
-              {/* <LoginPage /> */}
-              <LoginForm useAuth={useAuth} />
-            </Route>
-            <PrivateRoute path="/protected">
-              <ProtectedPage />
-            </PrivateRoute>
-          </Switch>
+            <Switch>
+              <Route path="/public">
+                <PublicPage />
+              </Route>
+              <Route path="/login">
+                {/* <LoginPage /> */}
+                <Grid container justifyContent="center">
+                  <Grid item xs={4}>
+                    <LoginForm useAuth={useAuth} />
+                  </Grid>
+                </Grid>
+              </Route>
+              <PrivateRoute path="/protected">
+                <ProtectedPage />
+              </PrivateRoute>
+            </Switch>
+          </Box>
         </div>
       </Router>
     </ProvideAuth>

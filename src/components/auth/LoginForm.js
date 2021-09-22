@@ -1,7 +1,6 @@
 import { useState, } from "react";
 import { useHistory, useLocation, } from "react-router-dom";
-import { Card, CardHeader, CardContent, CardActions, List, ListItem, Button, TextField, Typography } from "@mui/material";
-import { typography } from "@mui/system";
+import { Card, CardHeader, CardContent, CardActions, List, ListItem, Button, TextField, Typography, } from "@mui/material";
 
 let LoginForm = (props) => {
     let [credentials, setCredentials] = useState({
@@ -41,10 +40,14 @@ let LoginForm = (props) => {
 
     return (
         <Card variant="Outlined" sx={{
-            boxShadow: 3
+            boxShadow: 3,
+            display: 'flex',
         }}>
             <CardHeader title="Log-in" />
             <CardContent>
+                <Typography>
+                    LOGIN
+                </Typography>
                 <List>
                     <ListItem>
                         <TextField
