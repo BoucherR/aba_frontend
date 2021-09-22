@@ -1,5 +1,5 @@
-import { useState, } from "react";
-import { useHistory, useLocation, } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useHistory, useLocation, Redirect } from "react-router-dom";
 import { Card, CardHeader, CardContent, CardActions, List, ListItem, Button, TextField, Typography, } from "@mui/material";
 
 let LoginForm = (props) => {
@@ -19,9 +19,8 @@ let LoginForm = (props) => {
         // auth.signin((credentials) => {
         //   history.replace(from);
         // });
-
         auth.signin(credentials);
-        history.replace(from);
+        history.push("/");
     };
 
     let handleNameChange = (event) => {
@@ -43,7 +42,6 @@ let LoginForm = (props) => {
             boxShadow: 3,
             display: 'flex',
         }}>
-            <CardHeader title="Log-in" />
             <CardContent>
                 <Typography>
                     LOGIN

@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +16,7 @@ import LoginForm from './components/auth/LoginForm';
 import NavDrawer from './components/navigation/NavDrawer';
 
 import { Grid, Box } from "@mui/material"
-import { createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
@@ -67,6 +67,8 @@ function useProvideAuth() {
         if (result.status === 200) {
           setUser(result.data.user);
           setToken(result.data.token);
+          debugger;
+          return <Redirect to="/" />
         }
         else {
           setUser(null);
@@ -188,10 +190,14 @@ function ProtectedPage() {
 // just *before* logging in, the public page.
 
 let App = () => {
+  useEffect(() => {
+
+  })
+
   return (
     <ProvideAuth>
       <Router>
-        <div>
+        <ThemeProvider theme={theme}>
           <NavDrawer />
           <Box sx={{
             paddingLeft: '240px',
@@ -224,7 +230,7 @@ let App = () => {
               </PrivateRoute>
             </Switch>
           </Box>
-        </div>
+        </ThemeProvider>
       </Router>
     </ProvideAuth>
   );
