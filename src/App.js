@@ -17,6 +17,8 @@ import NavDrawer from './components/navigation/NavDrawer';
 
 import { Grid, Box } from "@mui/material"
 import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
+import PatientsDashboard from './components/patientsDashboard/PatientsDashboard';
+import PatientDashboard from './components/patientDashboard/PatientDashboard';
 
 const theme = createTheme({
   palette: {
@@ -67,8 +69,6 @@ function useProvideAuth() {
         if (result.status === 200) {
           setUser(result.data.user);
           setToken(result.data.token);
-          debugger;
-          return <Redirect to="/" />
         }
         else {
           setUser(null);
@@ -190,10 +190,6 @@ function ProtectedPage() {
 // just *before* logging in, the public page.
 
 let App = () => {
-  useEffect(() => {
-
-  })
-
   return (
     <ProvideAuth>
       <Router>
@@ -224,6 +220,12 @@ let App = () => {
                     <LoginForm useAuth={useAuth} />
                   </Grid>
                 </Grid>
+              </Route>
+              <Route path="/patients">
+                <PatientsDashboard />
+              </Route>
+              <Route path="/patient">
+                <PatientDashboard />
               </Route>
               <PrivateRoute path="/protected">
                 <ProtectedPage />

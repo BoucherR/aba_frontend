@@ -32,7 +32,7 @@ function NavDrawer() {
                     </ListSubheader>
                 }
             >
-                <ListItem button key={"My Patients"} component={Link} to={"/myPatients"}>
+                <ListItem button key={"My Patients"} component={Link} to={"/patients"}>
                     <ListItemIcon>
                         <ChildCare />
                     </ListItemIcon>
