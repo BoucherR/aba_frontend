@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 
 import { Link } from 'react-router-dom';
 
-import { ChildCare, Settings, Psychology, AccountCircle } from '@mui/icons-material/';
+import { ChildCare, Settings, Psychology, AccountCircle, BarChart } from '@mui/icons-material/';
 import { ListSubheader } from '@mui/material';
 
 const drawerWidth = 240;
@@ -37,6 +37,12 @@ function NavDrawer() {
                         <ChildCare />
                     </ListItemIcon>
                     <ListItemText primary={"My Patients"} />
+                </ListItem>
+                <ListItem button key={"Session Graphing"} component={Link} to={"/graphing"}>
+                    <ListItemIcon>
+                        <BarChart />
+                    </ListItemIcon>
+                    <ListItemText primary={"Graphing"} />
                 </ListItem>
             </List>
             <Divider />

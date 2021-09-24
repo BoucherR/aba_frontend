@@ -19,6 +19,7 @@ import { Grid, Box } from "@mui/material"
 import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 import PatientsDashboard from './components/patientsDashboard/PatientsDashboard';
 import PatientDashboard from './components/patientDashboard/PatientDashboard';
+import GraphingDashboard from './components/graphingDashboard/GraphingDashboard';
 
 const theme = createTheme({
   palette: {
@@ -205,7 +206,7 @@ let App = () => {
             paddingLeft: '240px',
             paddingTop: '65px',
             backgroundColor: '#ececec',
-            height: '100vh'
+            height: '150vh'
           }}>
             <AuthButton />
             <ul>
@@ -234,6 +235,9 @@ let App = () => {
               </Route>
               <Route path="/patient">
                 <PatientDashboard />
+              </Route>
+              <Route path="/graphing">
+                <GraphingDashboard />
               </Route>
               <PrivateRoute path="/protected">
                 <ProtectedPage />
