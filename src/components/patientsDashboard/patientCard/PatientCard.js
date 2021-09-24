@@ -61,8 +61,8 @@ let PatientCard = () => {
                 </Grid>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={redirectPatientInfo}>Programs</Button>
-                <Button size="small">Progress</Button>
+                <Button size="small" onClick={redirectPatientInfo}>Progress</Button>
+                <Button size="small">Tracking</Button>
             </CardActions>
         </Card>
     );

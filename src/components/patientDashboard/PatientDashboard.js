@@ -1,18 +1,32 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+
+import { Box, Grid, Typography, Card, CardHeader } from '@mui/material';
+
 import PatientInfo from './patientInfo/PatientInfo';
-import { Typography } from '@mui/material';
+import PatientProgGraph from './patientProgGraph/PatientProgGraph'
+import JournalList from '../journalList/JournalList';
 
 let PatientDashboard = (props) => {
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h5" sx={{ paddingBottom: "20px" }}>
-                Patient Information - Firstname Lastname
-            </Typography>
-            <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    <PatientInfo />
+        <Box variant="outline" sx={{ flexGrow: 1, padding: '20px', }}>
+            <Grid container spacing={4} >
+                <Grid item xs={7} sx={{ height: '890px' }}>
+                    <Card sx={{ height: '100%', overflow: 'auto', }}>
+                        <CardHeader title="Information - Firstname Lastname" />
+                        <PatientInfo />
+                    </Card>
+                </Grid>
+                <Grid item xs={5} sx={{ height: '890px', }}>
+                    <Card sx={{ height: '100%', overflow: 'auto', }}>
+                        <CardHeader title="Session Reports" />
+                        <JournalList />
+                    </Card>
+                </Grid>
+                <Grid item xs={7}>
+                    <Card>
+                        <CardHeader title="Progress - Firstname Lastname" />
+                        <PatientProgGraph />
+                    </Card>
                 </Grid>
             </Grid>
         </Box>

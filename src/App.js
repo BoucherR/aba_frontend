@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useContext, createContext, useState, useEffect } from "react";
+import React, { useContext, createContext, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,6 +31,12 @@ const theme = createTheme({
     },
     error: {
       main: '#f43636',
+    },
+    mainBackground: {
+      main: '#ececec',
+    },
+    subBackground: {
+      main: '#bfe3ce',
     },
   },
 });
@@ -198,6 +204,8 @@ let App = () => {
           <Box sx={{
             paddingLeft: '240px',
             paddingTop: '65px',
+            backgroundColor: '#ececec',
+            height: '100vh'
           }}>
             <AuthButton />
             <ul>
