@@ -239,6 +239,9 @@ let App = () => {
               <Route path="/graphing">
                 <GraphingDashboard />
               </Route>
+              {/* <Route path="/choiceBoard">
+                <ChoiceBoardDashboard />
+              </Route> */}
               <PrivateRoute path="/protected">
                 <ProtectedPage />
               </PrivateRoute>
