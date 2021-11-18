@@ -152,50 +152,6 @@ function ProtectedPage() {
   return <h3>Protected</h3>;
 }
 
-// function LoginPage() {
-//   let history = useHistory();
-//   let location = useLocation();
-//   let auth = useAuth();
-
-//   let { from } = location.state || { from: { pathname: "/" } };
-//   let login = () => {
-//     var credentials = {
-//       email: 'RyanTest@test.ca',
-//       password: 'password123',
-//     }
-
-//     // TODO: CHECK HISTORY IS UPDATED
-//     // auth.signin((credentials) => {
-//     //   history.replace(from);
-//     // });
-
-//     auth.signin(credentials);
-//     history.replace(from);
-//   };
-
-//   return (
-//     <div>
-//       <p>You must log in to view the page at {from.pathname}</p>
-//       <button onClick={login}>Log in</button>
-//     </div>
-//   );
-// }
-
-// This example has 3 pages: a public page, a protected
-// page, and a login screen. In order to see the protected
-// page, you must first login. Pretty standard stuff.
-//
-// First, visit the public page. Then, visit the protected
-// page. You're not yet logged in, so you are redirected
-// to the login page. After you login, you are redirected
-// back to the protected page.
-//
-// Notice the URL change each time. If you click the back
-// button at this point, would you expect to go back to the
-// login page? No! You're already logged in. Try it out,
-// and you'll see you go back to the page you visited
-// just *before* logging in, the public page.
-
 let App = () => {
   return (
     <ProvideAuth>
